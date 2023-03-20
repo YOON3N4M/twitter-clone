@@ -1,19 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "../routes/Home";
 import EditProfile from "../routes/EditProfile";
 import Auth from "../routes/Auth";
 import Profile from "../routes/Profile";
 
-interface Props {
-  isLogin: boolean;
-}
+import { useDispatch, useSelector } from "react-redux";
 
-function useRouter(isLogin: any) {
+function useRouter() {
+  const { isLogin } = useSelector((state: any) => ({
+    isLogin: state.store.isLogin,
+  }));
+
   const newRouter = createBrowserRouter([
     {
       path: `${process.env.PUBLIC_URL + "/"}`,
-      element: isLogin ? <Home /> : <Auth />,
+      element: <Home />,
     },
     {
       path: `${process.env.PUBLIC_URL + "/edit-profile"}`,
@@ -27,9 +29,8 @@ function useRouter(isLogin: any) {
   return newRouter;
 }
 
-function Router({ isLogin }: Props) {
-  console.log(isLogin);
-  const router = useRouter(isLogin);
+function Router() {
+  const router = useRouter();
   return <RouterProvider router={router} />;
 }
 
