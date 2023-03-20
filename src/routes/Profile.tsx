@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 function Profile() {
   const navigate = useNavigate();
   const onSignOutClick = () => {
-    navigate(process.env.PUBLIC_URL + "/");
+    navigate(`${process.env.PUBLIC_URL}/`);
     auth.signOut();
   };
   return (

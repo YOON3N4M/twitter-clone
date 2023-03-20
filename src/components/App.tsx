@@ -18,11 +18,7 @@ function App() {
     });
   }, []);
 
-  return (
-    <>
-      <footer>&copy; {new Date().getFullYear()} Twitter clone</footer>
-    </>
-  );
+  return <></>;
 }
 
 export default App;

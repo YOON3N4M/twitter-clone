@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -7,12 +7,20 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 import { auth } from "../fBase";
-
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { setSignIn, setSignOut } from "../modules/store";
+import { onAuthStateChanged } from "firebase/auth";
 function Auth() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [newAccount, setNewAccount] = useState(true);
   const [error, setError] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isLogin } = useSelector((state: any) => ({
+    isLogin: state.store.isLogin,
+  }));
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     const {
@@ -58,6 +66,24 @@ function Auth() {
       console.log(data);
     }
   };
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        dispatch(setSignIn());
+      } else {
+        dispatch(setSignOut());
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    if (isLogin === true) {
+      navigate(`${process.env.PUBLIC_URL}/`);
+    }
+  }, [isLogin]);
+
+  console.log(isLogin);
   return (
     <>
       <div>

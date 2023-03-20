@@ -3,6 +3,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../fBase";
 import { useDispatch, useSelector } from "react-redux";
 import { setSignIn, setSignOut } from "../modules/store";
+import Navigation from "../components/Navigation";
 
 function Home() {
   const dispatch = useDispatch();
@@ -23,8 +24,10 @@ function Home() {
   }, []);
 
   console.log(isLogin);
+
   return (
     <>
+      <Navigation />
       <div>home</div>
     </>
   );
