@@ -1,7 +1,9 @@
-import firebase from "firebase/compat/app";
-import "firebase/compat/auth";
-import "firebase/compat/firestore";
-import "firebase/compat/storage";
+import { initializeApp } from "firebase/app";
+import "firebase/auth";
+import { getAuth } from "firebase/auth";
+import "firebase/firestore";
+import { getFirestore } from "@firebase/firestore";
+import { getStorage } from "firebase/storage";
 
 interface FirebaseConfigT {
   readonly apiKey?: string;
@@ -22,5 +24,7 @@ const firebaseConfig: FirebaseConfigT = {
   appId: process.env.REACT_APP_APP_ID,
   databaseURL: process.env.REACT_APP_DATABASE_URL,
 };
-
-export default firebase.initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+export const dbService = getFirestore(app);
+export const storageService = getStorage();
