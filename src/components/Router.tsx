@@ -18,6 +18,10 @@ function useRouter() {
       element: <Home />,
     },
     {
+      path: `${process.env.PUBLIC_URL + "/auth"}`,
+      element: <Auth />,
+    },
+    {
       path: `${process.env.PUBLIC_URL + "/edit-profile"}`,
       element: <EditProfile />,
     },
