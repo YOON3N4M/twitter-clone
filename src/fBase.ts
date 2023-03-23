@@ -2,7 +2,15 @@ import { initializeApp } from "firebase/app";
 import "firebase/auth";
 import { getAuth } from "firebase/auth";
 import "firebase/firestore";
-import { getFirestore } from "@firebase/firestore";
+import {
+  getFirestore,
+  addDoc,
+  collection,
+  query,
+  getDocs,
+  onSnapshot,
+  orderBy,
+} from "@firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 interface FirebaseConfigT {
@@ -27,4 +35,8 @@ const firebaseConfig: FirebaseConfigT = {
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const dbService = getFirestore(app);
+export const dbAddDoc = addDoc;
+export const dbCollection = collection;
+export const dbGetDocs = getDocs;
+export const dbQuery = query;
 export const storageService = getStorage();

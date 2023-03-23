@@ -63,19 +63,8 @@ function Auth() {
 
     if (provider !== undefined) {
       const data = await signInWithPopup(auth, provider);
-      console.log(data);
     }
   };
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        dispatch(setSignIn());
-      } else {
-        dispatch(setSignOut());
-      }
-    });
-  }, []);
 
   useEffect(() => {
     if (isLogin === true) {
