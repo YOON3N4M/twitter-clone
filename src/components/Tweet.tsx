@@ -1,31 +1,40 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import { TweetT } from "../routes/Home";
-import { dbService } from "../fBase";
+import { dbService, storageService } from "../fBase";
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
+import { deleteObject, ref } from "@firebase/storage";
 
 interface Props {
   tweetObj: TweetT;
   isOwner: boolean;
+  isProfile: boolean;
 }
 
-function Tweet({ tweetObj, isOwner }: Props) {
+function Tweet({ tweetObj, isOwner, isProfile }: Props) {
   const TweetRef = doc(dbService, "tweets", `${tweetObj.id}`);
+  const urlRef = ref(storageService, tweetObj.attachmentURL);
   const [editing, setEditing] = useState(false);
   const [newTweet, setNewTweet] = useState(tweetObj.text);
 
-  function onDeleteClick() {
-    const ok = window.confirm("삭제하시겠습니까?");
+  async function onDeleteClick() {
+    const ok = window.confirm("게시글을 삭제 합니다.");
     if (ok) {
-      deleteDoc(TweetRef);
+      await deleteDoc(TweetRef);
+      if (tweetObj.attachmentURL !== "") {
+        await deleteObject(urlRef);
+      }
     }
   }
+
   function toggleEditing() {
     setEditing((prev) => !prev);
     setNewTweet(tweetObj.text);
   }
+
   function onChange(event: ChangeEvent<HTMLInputElement>) {
     setNewTweet(event.target.value);
   }
+
   function onSubmit(event: FormEvent) {
     event.preventDefault();
     updateDoc(TweetRef, {
@@ -46,6 +55,9 @@ function Tweet({ tweetObj, isOwner }: Props) {
       ) : (
         <div>
           <h4>{tweetObj.text}</h4>
+          {tweetObj.attachmentURL && (
+            <img src={tweetObj.attachmentURL} height="50px" width="50px" />
+          )}
           {isOwner && (
             <>
               <button onClick={onDeleteClick}>Delete Tweet</button>

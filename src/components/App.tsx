@@ -5,6 +5,7 @@ import { Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setSignIn, setSignOut, setFBaseInit, setUser } from "../modules/store";
 import Navigation from "./Navigation";
+import { updateProfile } from "@firebase/auth";
 
 type UserT = null | Object;
 
