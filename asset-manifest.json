@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/YOON3N4M/twitter-clone/static/js/main.1e61b904.js",
+    "main.js": "/YOON3N4M/twitter-clone/static/js/main.1ff79c9f.js",
     "index.html": "/YOON3N4M/twitter-clone/index.html",
-    "main.1e61b904.js.map": "/YOON3N4M/twitter-clone/static/js/main.1e61b904.js.map"
+    "main.1ff79c9f.js.map": "/YOON3N4M/twitter-clone/static/js/main.1ff79c9f.js.map"
   },
   "entrypoints": [
-    "static/js/main.1e61b904.js"
+    "static/js/main.1ff79c9f.js"
   ]
 }
