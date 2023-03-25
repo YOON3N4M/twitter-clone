@@ -4,6 +4,7 @@ import Router from "./components/Router";
 import { Provider } from "react-redux";
 import rootReducer from "./modules";
 import { legacy_createStore as createStore } from "redux";
+import { createGlobalStyle } from "styled-components";
 
 const store = createStore(rootReducer);
 

@@ -16,7 +16,7 @@ function Profile() {
   const [newDisplayName, setNewDisplayName] = useState(user.displayName);
   const [tweets, setTweests] = useState([]);
   const onSignOutClick = () => {
-    navigate(`${process.env.PUBLIC_URL}/`);
+    navigate(`/`);
     auth.signOut();
   };
   if (user.displayName === undefined) {
@@ -40,6 +40,7 @@ function Profile() {
   useEffect(() => {
     getMyTweets();
   }, [user]);
+
   function onProfileChange(event: ChangeEvent<HTMLInputElement>) {
     setNewDisplayName(event.target.value);
   }
@@ -48,8 +49,6 @@ function Profile() {
       await updateProfile(user, { displayName: newDisplayName });
     }
   }
-
-  console.log(tweets);
 
   return (
     <>

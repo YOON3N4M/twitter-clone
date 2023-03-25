@@ -13,10 +13,10 @@ function Navigation() {
     <>
       <ul>
         <li>
-          <Link to={process.env.PUBLIC_URL + "/"}>Home</Link>
+          <Link to="/home">Home</Link>
         </li>
         <li>
-          <Link to={process.env.PUBLIC_URL + "/profile"}>
+          <Link to="/profile">
             {user.displayName ? `${user.displayName}의 Profile` : "내 프로필"}
           </Link>
         </li>
@@ -25,7 +25,7 @@ function Navigation() {
         ) : (
           <>
             <li>
-              <Link to={process.env.PUBLIC_URL + "/auth"}>sign in</Link>
+              <Link to="/auth">sign in</Link>
             </li>
           </>
         )}

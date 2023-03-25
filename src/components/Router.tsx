@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  HashRouter,
+} from "react-router-dom";
 import App from "./App";
 import Home from "../routes/Home";
 import EditProfile from "../routes/EditProfile";
@@ -7,30 +11,35 @@ import Auth from "../routes/Auth";
 import Profile from "../routes/Profile";
 
 function useRouter() {
-  const newRouter = createBrowserRouter([
+  const newRouter = createBrowserRouter(
+    [
+      {
+        path: `/`,
+        element: <App />,
+        children: [
+          {
+            path: "/home",
+            element: <Home />,
+          },
+          {
+            path: "/auth",
+            element: <Auth />,
+          },
+          {
+            path: "/edit-profile",
+            element: <EditProfile />,
+          },
+          {
+            path: "/profile",
+            element: <Profile />,
+          },
+        ],
+      },
+    ],
     {
-      path: `${process.env.PUBLIC_URL + "/"}`,
-      element: <App />,
-      children: [
-        {
-          path: `${process.env.PUBLIC_URL + "/"}`,
-          element: <Home />,
-        },
-        {
-          path: `${process.env.PUBLIC_URL + "/auth"}`,
-          element: <Auth />,
-        },
-        {
-          path: `${process.env.PUBLIC_URL + "/edit-profile"}`,
-          element: <EditProfile />,
-        },
-        {
-          path: `${process.env.PUBLIC_URL + "/profile"}`,
-          element: <Profile />,
-        },
-      ],
-    },
-  ]);
+      basename: process.env.PUBLIC_URL,
+    }
+  );
   return newRouter;
 }
 

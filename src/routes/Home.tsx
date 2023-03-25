@@ -23,7 +23,6 @@ import { collection } from "firebase/firestore";
 import Tweet from "../components/Tweet";
 import { ref, uploadString, getDownloadURL } from "@firebase/storage";
 import { v4 as uuidv4 } from "uuid";
-import { response } from "express";
 
 export interface TweetT {
   id?: string;
