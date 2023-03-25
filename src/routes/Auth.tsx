@@ -9,12 +9,70 @@ import {
 import { auth } from "../fBase";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+
+import { Container, FormContainer } from "../components/Styled";
+
+const AuthInput = styled.input`
+  max-width: 320px;
+  width: 300px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 30px;
+  font-size: 12px;
+  color: black;
+  margin: 0 auto;
+  margin-top: 10px;
+  height: 30px;
+`;
+
+const AuthSubmit = styled.input`
+  margin: 0 auto;
+  width: 300px;
+  text-align: center;
+  background: #262a56;
+  color: white;
+  margin-top: 10px;
+  cursor: pointer;
+  border: solid 1px white;
+  border-radius: 30px;
+  height: 30px;
+`;
+const SocialLoginContainer = styled.div`
+  width: 300px;
+  display: flex;
+
+  margin: 0 auto;
+  margin-top: 20px;
+  justify-content: space-between;
+`;
+const SocialLoginBtn = styled.button`
+  width: 120px;
+  height: 30px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 30px;
+`;
+
+const ChangableSpan = styled.span<{ color: string }>`
+  text-align: center;
+  margin-top: 10px;
+  font-weight: 100;
+  color: ${(props: any) => (props.color === "red" ? "#e74c3c" : "white")};
+`;
+
+const ChangableB = styled.b`
+  cursor: pointer;
+  text-decoration: underline;
+  margin-left: 5px;
+  color: white;
+`;
 
 function Auth() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [newAccount, setNewAccount] = useState(true);
-  const [error, setError] = useState("");
+  const [newAccount, setNewAccount] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
   const navigate = useNavigate();
   const { isLogin } = useSelector((state: any) => ({
@@ -46,7 +104,23 @@ function Auth() {
       }
       console.log(data);
     } catch (error: any) {
-      setError(error.message);
+      console.log(error.message);
+      switch (error.message) {
+        case "Firebase: Error (auth/user-not-found).":
+          setErrorMsg("존재하지 않는 계정 입니다.");
+          break;
+        case "Firebase: Error (auth/wrong-password).":
+          setErrorMsg("잘못된 비밀번호 입니다.");
+          break;
+        case "Firebase: Error (auth/email-already-in-use).":
+          setErrorMsg("이미 사용중인 이메일 입니다.");
+          break;
+        case "Firebase: Password should be at least 6 characters (auth/weak-password).":
+          setErrorMsg("비밀번호는 최소 6자리 이상이여야 합니다.");
+          break;
+        default:
+          break;
+      }
     }
   };
 
@@ -74,40 +148,43 @@ function Auth() {
   console.log(isLogin);
   return (
     <>
-      <div>
-        <form onSubmit={onSubmit}>
-          <input
+      <Container>
+        <FormContainer onSubmit={onSubmit}>
+          <AuthInput
             name="email"
             onChange={onChange}
             type="text"
-            placeholder="Email"
             required
-          ></input>
-          <input
+            placeholder="E-mail"
+          ></AuthInput>
+          <AuthInput
             name="password"
             onChange={onChange}
             type="password"
-            placeholder="Password"
             required
-          ></input>
-          <input
+            placeholder="Password"
+          ></AuthInput>
+          <AuthSubmit
             type="submit"
-            value={newAccount ? "Create Account" : "Sign In"}
-          ></input>
-          {error}
-        </form>
-        <span onClick={toggleAccount}>
-          {newAccount ? "Sign In" : "Create Account"}
-        </span>
-        <div>
-          <button onClick={onSocialClick} name="google">
-            Continue with google
-          </button>
-          <button onClick={onSocialClick} name="github">
-            Continue with github
-          </button>
-        </div>
-      </div>
+            value={newAccount ? "회원가입" : "로그인"}
+          />
+          <ChangableSpan color="red">{errorMsg}</ChangableSpan>
+        </FormContainer>
+        <SocialLoginContainer>
+          <SocialLoginBtn onClick={onSocialClick} name="google">
+            Google
+          </SocialLoginBtn>
+          <SocialLoginBtn onClick={onSocialClick} name="github">
+            Github
+          </SocialLoginBtn>
+        </SocialLoginContainer>
+        <ChangableSpan color="white">
+          {newAccount ? "계정이 있다면?" : "계정이 없으신가요?"}{" "}
+          <ChangableB onClick={toggleAccount}>
+            {newAccount ? "로그인" : "회원가입"}{" "}
+          </ChangableB>
+        </ChangableSpan>
+      </Container>
     </>
   );
 }

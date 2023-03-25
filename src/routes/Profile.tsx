@@ -6,6 +6,23 @@ import { collection, getDocs, query, where } from "@firebase/firestore";
 import { updateProfile } from "@firebase/auth";
 import { onSnapshot, orderBy } from "@firebase/firestore";
 import Tweet from "../components/Tweet";
+import styled from "styled-components";
+import { Container } from "../components/Styled";
+
+const ProfileContainer = styled.div`
+  margin: 0 auto;
+  width: 100%;
+  min-height: 100px;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+`;
+const StyledSpan = styled.span`
+  margin: 0 auto;
+  text-align: center;
+`;
 
 function Profile() {
   const navigate = useNavigate();
@@ -16,8 +33,8 @@ function Profile() {
   const [newDisplayName, setNewDisplayName] = useState(user.displayName);
   const [tweets, setTweests] = useState([]);
   const onSignOutClick = () => {
-    navigate(`/`);
     auth.signOut();
+    navigate(`/`);
   };
   if (user.displayName === undefined) {
   }
@@ -37,7 +54,14 @@ function Profile() {
     });
   }
 
+  function ifNotLogin() {
+    if (isLogin === false) {
+      alert("로그인 후 이용 가능합니다.");
+      navigate("/auth");
+    }
+  }
   useEffect(() => {
+    ifNotLogin();
     getMyTweets();
   }, [user]);
 
@@ -52,27 +76,36 @@ function Profile() {
 
   return (
     <>
-      <form onSubmit={onProfileSubmit}>
-        <input
-          onChange={onProfileChange}
-          value={newDisplayName}
-          type="text"
-          placeholder="Display name"
-        />
-        <input type="submit" value="Update Profile" />
-      </form>
-      {isLogin ? <button onClick={onSignOutClick}>Sign Out</button> : null}
-      <div>
-        {tweets.map((tweet: any) => (
-          <Tweet
-            key={tweet.id}
-            tweetObj={tweet}
-            isOwner={tweet.creatorId === user.uid}
-            isProfile={true}
-          />
-        ))}
-      </div>
-      <span>{user.displayName}의 프로필 입니다.</span>
+      {isLogin ? (
+        <>
+          {/* 
+          <form onSubmit={onProfileSubmit}>
+            <input
+              onChange={onProfileChange}
+              value={newDisplayName}
+              type="text"
+              placeholder="Display name"
+            />
+            <input type="submit" value="Update Profile" />
+                  </form>
+                  */}
+          <div>
+            {tweets.length === 0 ? (
+              <ProfileContainer>
+                <StyledSpan>내 게시글이 없습니다.</StyledSpan>
+              </ProfileContainer>
+            ) : null}
+            {tweets.map((tweet: any) => (
+              <Tweet
+                key={tweet.id}
+                tweetObj={tweet}
+                isOwner={tweet.creatorId === user.uid}
+                isProfile={true}
+              />
+            ))}
+          </div>
+        </>
+      ) : null}
     </>
   );
 }

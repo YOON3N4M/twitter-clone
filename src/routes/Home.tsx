@@ -20,16 +20,44 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSignIn, setSignOut } from "../modules/store";
 import Navigation from "../components/Navigation";
 import { collection } from "firebase/firestore";
-import Tweet from "../components/Tweet";
+import Tweet, { TweetContainer } from "../components/Tweet";
 import { ref, uploadString, getDownloadURL } from "@firebase/storage";
 import { v4 as uuidv4 } from "uuid";
+import styled from "styled-components";
 
+export const TextInput = styled.input`
+  background-color: black;
+  color: white;
+  outline: none;
+  border: 0px;
+  display: block;
+  width: 300px;
+  height: 100px;
+  word-break: break-word;
+`;
+
+const FileInput = styled.input``;
+export const SubmitInput = styled.input`
+  background-color: black;
+  color: white;
+  border: 0px;
+  outline: none;
+  cursor: pointer;
+`;
+
+const TweetFooter = styled.div`
+  width: 710px;
+  display: flex;
+  justify-content: space-between;
+`;
 export interface TweetT {
   id?: string;
   createAt?: number;
   text?: string;
   creatorId?: string;
   attachmentURL?: string;
+  email?: string;
+  profilePhoto?: string;
 }
 type TweetsT = TweetT[];
 
@@ -61,6 +89,8 @@ function Home() {
         createAt: Date.now(),
         creatorId: user.uid,
         attachmentURL,
+        email: user.email,
+        profilePhoto: user.photoURL,
       });
       console.log(docRef);
     } catch (error) {
@@ -109,37 +139,41 @@ function Home() {
     setAttachment("");
     fileInput.current.value = "";
   }
-  console.log(tweets);
+  console.log(user);
   return (
     <>
       <div>
         {isLogin ? (
           <>
-            <form onSubmit={onSubmit}>
-              <input
-                type="text"
-                placeholder="What's on your mind?"
-                maxLength={120}
-                onChange={onChange}
-                value={tweet}
-              />
-              <input
-                onChange={onFileChange}
-                type="file"
-                accept="image/*"
-                ref={fileInput}
-              />
-              <input type="submit" value="tweet" />
-              {attachment && (
-                <div>
-                  <img src={attachment} width="50px" height="50px" />
-                  <button onClick={onClearAttachment}>Clear</button>
-                </div>
-              )}
-            </form>
+            <TweetContainer>
+              <form onSubmit={onSubmit}>
+                <TextInput
+                  type="text"
+                  placeholder="무슨 일이 일어나고 있나요"
+                  maxLength={120}
+                  onChange={onChange}
+                  value={tweet}
+                />
+                <TweetFooter>
+                  <FileInput
+                    onChange={onFileChange}
+                    type="file"
+                    accept="image/*"
+                    ref={fileInput}
+                  />
+                  <SubmitInput type="submit" value="게시" />
+                </TweetFooter>
+                {attachment && (
+                  <div>
+                    <img src={attachment} width="50px" height="50px" />
+                    <button onClick={onClearAttachment}>Clear</button>
+                  </div>
+                )}
+              </form>
+            </TweetContainer>
           </>
         ) : (
-          <div>로그인을 해주세요.</div>
+          ""
         )}
 
         <div>

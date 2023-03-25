@@ -9,6 +9,15 @@ import { updateProfile } from "@firebase/auth";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
+const AppContainer = styled.div`
+  width: 800px;
+
+  background-color: black;
+  margin: 0 auto;
+  border: 0.1px white solid;
+  padding-bottom: 30px;
+`;
+
 type UserT = null | Object;
 
 function App() {
@@ -24,6 +33,7 @@ function App() {
       } else {
         dispatch(setSignOut());
         dispatch(setUser({}));
+        navigate("/Auth");
       }
       dispatch(setFBaseInit());
     });
@@ -31,14 +41,12 @@ function App() {
 
   return (
     <>
-      <Navigation />
-      <Outlet />
+      <AppContainer>
+        <Navigation />
+        <Outlet />
+      </AppContainer>
     </>
   );
 }
-
-const styledContainer = styled.div`
-  width: 100%;
-`;
 
 export default App;
