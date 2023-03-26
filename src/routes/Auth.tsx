@@ -57,7 +57,7 @@ const SocialLoginBtn = styled.button`
   cursor: pointer;
 `;
 
-const ChangableSpan = styled.span<{ color: string }>`
+export const ChangableSpan = styled.span<{ color: string }>`
   text-align: center;
   margin-top: 10px;
   font-weight: 500;

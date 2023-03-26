@@ -47,7 +47,7 @@ function Navigation() {
               <Link to="/">홈</Link>
             </NavigationLi>
             <NavigationLi>
-              <Link to="/profile">내 프로필</Link>
+              <Link to="/profile">내 피드</Link>
             </NavigationLi>
           </NavigationUl>
         </div>

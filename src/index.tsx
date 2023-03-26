@@ -20,9 +20,13 @@ const GlobalStyle = createGlobalStyle`
     background-color: #EBEEF1;
     color:black;
    font-weight: 100;
+  
   }
   *{
     box-sizing: border-box;
+    &::-webkit-scrollbar {
+    display: none;
+  }
   }
   a{
     text-decoration: none;

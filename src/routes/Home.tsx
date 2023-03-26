@@ -59,8 +59,9 @@ export interface TweetT {
   text?: string;
   creatorId?: string;
   attachmentURL?: string;
-  email?: string;
-  profilePhoto?: string;
+  email?: any | null;
+  profilePhoto?: string | null;
+  displayName?: string | null;
 }
 type TweetsT = TweetT[];
 
@@ -94,6 +95,7 @@ function Home() {
         attachmentURL,
         email: user.email,
         profilePhoto: user.photoURL,
+        displayName: user.displayName,
       });
       console.log(docRef);
     } catch (error) {
@@ -142,6 +144,7 @@ function Home() {
     setAttachment("");
     fileInput.current.value = "";
   }
+
   console.log(user);
   return (
     <>

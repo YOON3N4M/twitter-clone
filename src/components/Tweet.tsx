@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { TextInput, TweetT } from "../routes/Home";
 import { dbService, storageService } from "../fBase";
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
@@ -66,12 +66,14 @@ interface Props {
   isOwner: boolean;
   isProfile: boolean;
 }
+type byNameT = string | null;
 
 function Tweet({ tweetObj, isOwner, isProfile }: Props) {
   const TweetRef = doc(dbService, "tweets", `${tweetObj.id}`);
   const urlRef = ref(storageService, tweetObj.attachmentURL);
   const [editing, setEditing] = useState(false);
   const [newTweet, setNewTweet] = useState(tweetObj.text);
+  const [byName, setByName] = useState<byNameT>(null);
 
   const { user } = useSelector((state: any) => ({
     user: state.store.user,
@@ -103,6 +105,16 @@ function Tweet({ tweetObj, isOwner, isProfile }: Props) {
     });
     setEditing((prev) => !prev);
   }
+  useEffect(() => {
+    if (tweetObj.displayName) {
+      setByName(tweetObj.displayName);
+    } else if (tweetObj.email) {
+      setByName(tweetObj.email);
+    } else {
+      setByName("익명의 작성자");
+    }
+  }, []);
+
   return (
     <>
       <TweetContainer>
@@ -116,7 +128,7 @@ function Tweet({ tweetObj, isOwner, isProfile }: Props) {
 
         <TweetBody>
           <TextHeader>
-            {tweetObj.email === null ? "익명의 작성자" : `${tweetObj.email}`}
+            {byName}
             {isOwner && (
               <div>
                 <StyledButton onClick={onDeleteClick}>Delete</StyledButton>
