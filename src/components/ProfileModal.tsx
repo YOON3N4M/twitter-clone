@@ -177,7 +177,7 @@ function ProfileModal({ toggle, setToggle }: Props) {
               <HOne onClick={onNameClick}>{name}</HOne>
             )}
 
-            <HFive>lgmysn2@gmail.com</HFive>
+            <HFive>{user.email && user.email}</HFive>
           </ModalWindow>
         </ModalBack>
       </ModalContainer>

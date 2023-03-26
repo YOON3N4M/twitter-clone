@@ -14,7 +14,7 @@ const ProfileContainer = styled.div`
   margin: 0 auto;
   width: 100%;
   min-height: 100px;
-  background-color: black;
+  background-color: white;
   display: flex;
   justify-content: center;
   flex-direction: column;
