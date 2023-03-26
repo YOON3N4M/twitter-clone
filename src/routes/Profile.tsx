@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { auth, dbService } from "../fBase";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -8,6 +8,7 @@ import { onSnapshot, orderBy } from "@firebase/firestore";
 import Tweet from "../components/Tweet";
 import styled from "styled-components";
 import { Container } from "../components/Styled";
+import ProfileModal from "../components/ProfileModal";
 
 const ProfileContainer = styled.div`
   margin: 0 auto;
@@ -23,6 +24,21 @@ const StyledSpan = styled.span`
   margin: 0 auto;
   text-align: center;
 `;
+const ProfileHeader = styled.div`
+  width: 100%;
+  //background-color: yellow;
+  height: 50px;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+`;
+const ProfileBtn = styled.button`
+  background-color: rgb(43, 52, 103);
+  height: 30px;
+  margin-right: 15px;
+  color: white;
+  border-radius: 5px;
+`;
 
 function Profile() {
   const navigate = useNavigate();
@@ -30,6 +46,7 @@ function Profile() {
     user: state.store.user,
     isLogin: state.store.isLogin,
   }));
+  const [toggle, setToggle] = useState(false);
   const [newDisplayName, setNewDisplayName] = useState(user.displayName);
   const [tweets, setTweests] = useState([]);
   const onSignOutClick = () => {
@@ -68,14 +85,31 @@ function Profile() {
   function onProfileChange(event: ChangeEvent<HTMLInputElement>) {
     setNewDisplayName(event.target.value);
   }
-  async function onProfileSubmit() {
+
+  async function onProfileSubmit(event: FormEvent) {
+    event.preventDefault();
     if (user.displayName !== newDisplayName) {
-      await updateProfile(user, { displayName: newDisplayName });
+      await updateProfile(user, { displayName: newDisplayName })
+        .then(() => {
+          alert("닉네임이 성공적으로 변경되었습니다.");
+          navigate("/");
+        })
+        .catch((error) => alert(error));
     }
   }
 
+  function onToggle() {
+    setToggle((prev) => !prev);
+  }
   return (
     <>
+      {toggle ? (
+        <>
+          <ProfileModal setToggle={setToggle} toggle={toggle}></ProfileModal>
+        </>
+      ) : (
+        ""
+      )}
       {isLogin ? (
         <>
           {/* 
@@ -90,6 +124,10 @@ function Profile() {
                   </form>
                   */}
           <div>
+            <ProfileHeader>
+              <ProfileBtn onClick={onToggle}>내 프로필</ProfileBtn>
+            </ProfileHeader>
+
             {tweets.length === 0 ? (
               <ProfileContainer>
                 <StyledSpan>내 게시글이 없습니다.</StyledSpan>
