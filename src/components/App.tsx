@@ -11,11 +11,11 @@ import styled from "styled-components";
 
 const AppContainer = styled.div`
   width: 800px;
-
-  background-color: black;
+  background-color: white;
   margin: 0 auto;
-  border: 0.1px white solid;
   padding-bottom: 30px;
+  border-radius: 30px;
+  box-shadow: 0 2px 2px 0 rgb(0 0 0 / 19%);
 `;
 
 type UserT = null | Object;
@@ -29,11 +29,9 @@ function App() {
       if (user) {
         dispatch(setSignIn());
         dispatch(setUser(user));
-        navigate("/home");
       } else {
         dispatch(setSignOut());
         dispatch(setUser({}));
-        navigate("/Auth");
       }
       dispatch(setFBaseInit());
     });

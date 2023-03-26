@@ -10,8 +10,9 @@ import { auth } from "../fBase";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
 import { Container, FormContainer } from "../components/Styled";
+import { faGoogle, faGithub } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const AuthInput = styled.input`
   max-width: 320px;
@@ -24,6 +25,7 @@ const AuthInput = styled.input`
   margin: 0 auto;
   margin-top: 10px;
   height: 30px;
+  border: 1px solid black;
 `;
 
 const AuthSubmit = styled.input`
@@ -34,7 +36,7 @@ const AuthSubmit = styled.input`
   color: white;
   margin-top: 10px;
   cursor: pointer;
-  border: solid 1px white;
+  border: solid 1px black;
   border-radius: 30px;
   height: 30px;
 `;
@@ -52,20 +54,21 @@ const SocialLoginBtn = styled.button`
   background-color: white;
   border: 1px solid black;
   border-radius: 30px;
+  cursor: pointer;
 `;
 
 const ChangableSpan = styled.span<{ color: string }>`
   text-align: center;
   margin-top: 10px;
-  font-weight: 100;
-  color: ${(props: any) => (props.color === "red" ? "#e74c3c" : "white")};
+  font-weight: 500;
+  color: ${(props: any) => (props.color === "red" ? "#e74c3c" : "black")};
 `;
 
 const ChangableB = styled.b`
   cursor: pointer;
   text-decoration: underline;
   margin-left: 5px;
-  color: white;
+  color: black;
 `;
 
 function Auth() {
@@ -141,7 +144,7 @@ function Auth() {
 
   useEffect(() => {
     if (isLogin === true) {
-      navigate("/home");
+      navigate(`/`);
     }
   }, [isLogin]);
 
@@ -173,9 +176,11 @@ function Auth() {
         <SocialLoginContainer>
           <SocialLoginBtn onClick={onSocialClick} name="google">
             Google
+            <FontAwesomeIcon style={{ marginLeft: "10px" }} icon={faGoogle} />
           </SocialLoginBtn>
           <SocialLoginBtn onClick={onSocialClick} name="github">
             Github
+            <FontAwesomeIcon style={{ marginLeft: "10px" }} icon={faGithub} />
           </SocialLoginBtn>
         </SocialLoginContainer>
         <ChangableSpan color="white">

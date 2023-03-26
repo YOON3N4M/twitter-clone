@@ -6,12 +6,16 @@ import { auth } from "../fBase";
 
 const NavigationContainer = styled.div`
   width: 100%;
-  background-color: #262a56;
+  background-color: #2b3467;
   display: flex;
   flex-direction: row;
-  height: 60px;
+  height: 90px;
   justify-content: space-between;
   align-items: center;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  box-shadow: 0 2px 2px 0 rgb(0 0 0 / 19%);
+  color: white;
 `;
 const NavigationUl = styled.ul`
   list-style: none;
@@ -40,7 +44,7 @@ function Navigation() {
         <div>
           <NavigationUl>
             <NavigationLi>
-              <Link to="/home">Home</Link>
+              <Link to="/">홈</Link>
             </NavigationLi>
             <NavigationLi>
               <Link to="/profile">내 프로필</Link>

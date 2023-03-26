@@ -9,12 +9,13 @@ import { useSelector } from "react-redux";
 export const TweetContainer = styled.div`
   width: 750px;
   min-height: 80px;
-  border: 1px solid white;
   display: flex;
   flex-direction: row;
   margin: 0 auto;
   margin-top: 30px;
   padding: 10px 10px 15px 10px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px 2px rgb(0 0 0 / 19%);
 `;
 const ProfileImgContainer = styled.div`
   position: relative;
@@ -49,7 +50,7 @@ const ProfileImg = styled.img`
 
 const StyledButton = styled.button`
   opacity: 70%;
-  color: white;
+  color: black;
   margin-left: 5px;
   cursor: pointer;
 `;
@@ -115,7 +116,7 @@ function Tweet({ tweetObj, isOwner, isProfile }: Props) {
 
         <TweetBody>
           <TextHeader>
-            {tweetObj.email === null ? "익명의 작성자" : "tweetObj.email"}
+            {tweetObj.email === null ? "익명의 작성자" : `${tweetObj.email}`}
             {isOwner && (
               <div>
                 <StyledButton onClick={onDeleteClick}>Delete</StyledButton>

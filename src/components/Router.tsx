@@ -18,7 +18,7 @@ function useRouter() {
         element: <App />,
         children: [
           {
-            path: "/home",
+            path: `/`,
             element: <Home />,
           },
           {

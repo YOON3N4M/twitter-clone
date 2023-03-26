@@ -26,8 +26,8 @@ import { v4 as uuidv4 } from "uuid";
 import styled from "styled-components";
 
 export const TextInput = styled.input`
-  background-color: black;
-  color: white;
+  background-color: white;
+  color: black;
   outline: none;
   border: 0px;
   display: block;
@@ -37,12 +37,14 @@ export const TextInput = styled.input`
 `;
 
 const FileInput = styled.input``;
+
 export const SubmitInput = styled.input`
-  background-color: black;
+  background-color: rgb(43, 52, 103);
   color: white;
   border: 0px;
   outline: none;
   cursor: pointer;
+  border-radius: 5px;
 `;
 
 const TweetFooter = styled.div`
@@ -50,6 +52,7 @@ const TweetFooter = styled.div`
   display: flex;
   justify-content: space-between;
 `;
+
 export interface TweetT {
   id?: string;
   createAt?: number;
@@ -149,7 +152,7 @@ function Home() {
               <form onSubmit={onSubmit}>
                 <TextInput
                   type="text"
-                  placeholder="무슨 일이 일어나고 있나요"
+                  placeholder="무슨 일이 일어나고 있나요?"
                   maxLength={120}
                   onChange={onChange}
                   value={tweet}
@@ -172,11 +175,8 @@ function Home() {
               </form>
             </TweetContainer>
           </>
-        ) : (
-          ""
-        )}
-
-        <div>
+        ) : null}
+        <>
           {tweets.map((tweet) => (
             <Tweet
               key={tweet.id}
@@ -185,7 +185,7 @@ function Home() {
               isProfile={false}
             />
           ))}
-        </div>
+        </>
       </div>
     </>
   );
