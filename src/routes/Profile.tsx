@@ -7,7 +7,7 @@ import { updateProfile } from "@firebase/auth";
 import { onSnapshot, orderBy } from "@firebase/firestore";
 import Tweet from "../components/Tweet";
 import styled from "styled-components";
-import { Container } from "../components/Styled";
+import { Container, fadein } from "../components/theme";
 import ProfileModal from "../components/ProfileModal";
 
 const ProfileContainer = styled.div`
@@ -19,6 +19,7 @@ const ProfileContainer = styled.div`
   justify-content: center;
   flex-direction: column;
   text-align: center;
+  animation: ${fadein} 0.5s ease-in-out;
 `;
 const StyledSpan = styled.span`
   margin: 0 auto;
@@ -38,6 +39,7 @@ const ProfileBtn = styled.button`
   margin-right: 15px;
   color: white;
   border-radius: 5px;
+  cursor: pointer;
 `;
 
 function Profile() {
@@ -71,12 +73,7 @@ function Profile() {
     });
   }
 
-  function ifNotLogin() {
-    if (isLogin === false) {
-      alert("로그인 후 이용 가능합니다.");
-      navigate("/auth");
-    }
-  }
+  function ifNotLogin() {}
   useEffect(() => {
     ifNotLogin();
     getMyTweets();
@@ -143,7 +140,11 @@ function Profile() {
             ))}
           </div>
         </>
-      ) : null}
+      ) : (
+        <ProfileContainer>
+          <StyledSpan>로그인 후 이용 가능합니다.</StyledSpan>
+        </ProfileContainer>
+      )}
     </>
   );
 }

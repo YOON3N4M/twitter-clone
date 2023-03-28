@@ -5,6 +5,7 @@ import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 import { deleteObject, ref } from "@firebase/storage";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
+import { fadeup } from "./theme";
 
 export const TweetContainer = styled.div`
   width: 750px;
@@ -16,6 +17,7 @@ export const TweetContainer = styled.div`
   padding: 10px 10px 15px 10px;
   border-radius: 10px;
   box-shadow: 2px 2px 2px 2px rgb(0 0 0 / 19%);
+  animation: ${fadeup} 0.5s ease-in-out;
 `;
 const ProfileImgContainer = styled.div`
   position: relative;

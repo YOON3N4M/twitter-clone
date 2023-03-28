@@ -8,6 +8,7 @@ import Navigation from "./Navigation";
 import { updateProfile } from "@firebase/auth";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { fadein } from "./theme";
 
 const AppContainer = styled.div`
   width: 800px;
@@ -16,6 +17,7 @@ const AppContainer = styled.div`
   padding-bottom: 30px;
   border-radius: 30px;
   box-shadow: 0 2px 2px 0 rgb(0 0 0 / 19%);
+  animation: ${fadein} 0.5s ease-in-out;
 `;
 
 type UserT = null | Object;

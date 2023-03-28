@@ -10,7 +10,7 @@ import { auth } from "../fBase";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Container, FormContainer } from "../components/Styled";
+import { Container, FormContainer } from "../components/theme";
 import { faGoogle, faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 

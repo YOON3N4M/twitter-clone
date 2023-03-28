@@ -32,6 +32,7 @@ const firebaseConfig: FirebaseConfigT = {
   appId: process.env.REACT_APP_APP_ID,
   databaseURL: process.env.REACT_APP_DATABASE_URL,
 };
+
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const dbService = getFirestore(app);

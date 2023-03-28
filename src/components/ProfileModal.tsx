@@ -2,6 +2,7 @@ import { updateProfile } from "firebase/auth";
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { fadein, fadeup } from "./theme";
 
 const ModalContainer = styled.div`
   position: absolute;
@@ -15,6 +16,7 @@ const ModalContainer = styled.div`
   align-items: center;
   z-index: 100;
   overflow-y: hidden;
+  animation: ${fadein} 0.3s ease-in-out;
 `;
 const ModalBack = styled.div`
   position: absolute;
@@ -39,6 +41,7 @@ const ModalWindow = styled.div`
   background-color: white;
   border-radius: 30px;
   color: #4000c7;
+  animation: ${fadeup} 0.5s ease-in-out;
 `;
 
 const ModalHeader = styled.div`
@@ -59,7 +62,13 @@ const ImgDiv = styled.div`
   margin-bottom: 30px;
   cursor: pointer;
 `;
-
+const ProfileImg = styled.img`
+  margin: 0 auto;
+  width: 124px;
+  height: 124px;
+  border-radius: 50%;
+  cursor: pointer;
+`;
 const Line = styled.hr`
   margin-bottom: 50px;
   background-color: gray;
@@ -159,7 +168,11 @@ function ProfileModal({ toggle, setToggle }: Props) {
                 X
               </ExitBtn>
             </ModalHeader>
-            <ImgDiv></ImgDiv>
+            <ImgDiv>
+              {user.photoURL !== null ? (
+                <ProfileImg src={user.photoURL} />
+              ) : null}
+            </ImgDiv>
             <Line></Line>
             {canChange ? (
               <>
