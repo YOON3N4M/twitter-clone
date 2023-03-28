@@ -5,7 +5,7 @@
 배포 https://yoon3n4m.github.io/twitter-clone/
 
 ### 스택
-<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"> <img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=Redux&logoColor=white"> <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"> <img src="https://img.shields.io/badge/firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=white">
+<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"> <img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=Redux&logoColor=white"> <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"> <img src="https://img.shields.io/badge/firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=white"> <img src="https://img.shields.io/badge/styled components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white">
 <hr>
 
 ### 앱소개
@@ -14,7 +14,7 @@
 * 사용자 정보 기억과 구글, 깃허브 계정을 연동해 로그인 가능
 * 자체적인 회원가입 서비스 또한 제공하며 가입된 새 계정의 정보는 firebase storage에 저장
 * 실시간으로 firebase storage의 변화를 감지하며 게시글을 출력해 이용자들에게 제공
-* 사용자 이름 변경 기능 제공 (예정)
+* 사용자 이름(닉네임) 변경 기능 제공
 
 #### styled-components
 * 재사용성 높고 수정이 용이한 컴포넌트 형식의 스타일링
